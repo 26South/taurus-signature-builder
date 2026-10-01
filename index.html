@@ -491,14 +491,50 @@
             });
         });
 
+        // Format phone numbers to pattern: +27 XX XXX XXXX (with +27) or XXX XXX XXXX (without +27)
+        function formatPhoneNumber(phone) {
+            if (!phone) return '';
+
+            const trimmed = phone.trim();
+            const hasPlus = trimmed.startsWith('+');
+            const digitsOnly = trimmed.replace(/\D/g, '');
+
+            if (!digitsOnly) return phone; // Return original if no digits found
+
+            // International format: +27 XX XXX XXXX (country code + 2 + 3 + 4)
+            if (hasPlus) {
+                if (digitsOnly.length >= 11) {
+                    const country = digitsOnly.slice(0, 2);    // 27
+                    const area = digitsOnly.slice(2, 4);       // 11 (2 digits)
+                    const middle = digitsOnly.slice(4, 7);     // 123 (3 digits)
+                    const last = digitsOnly.slice(7);          // 4567 (remaining)
+                    return `+${country} ${area} ${middle} ${last}`;
+                }
+            }
+
+            // Domestic format: XXX XXX XXXX (3 + 3 + 4)
+            if (digitsOnly.length >= 10) {
+                const first = digitsOnly.slice(0, 3);         // 011 (3 digits)
+                const middle = digitsOnly.slice(3, 6);        // 123 (3 digits)
+                const last = digitsOnly.slice(6);             // 4567 (remaining)
+                return `${first} ${middle} ${last}`;
+            }
+
+            return phone; // Return original if insufficient digits
+        }
+
         function buildSignature(name, title, email, mobile, phone, includeFeedback) {
             let zohoUrl = document.getElementById('zoho-url').value;
             let html = BASE_TEMPLATE;
 
+            // Format phone numbers
+            const formattedMobile = formatPhoneNumber(mobile);
+            const formattedPhone = formatPhoneNumber(phone);
+
             // Phone row logic
             let phoneRow = '';
-            if (phone && phone.trim()) {
-                phoneRow = `<span><span style="color:#141f3e;"><strong>t: </strong></span><span style="color:#141f3e;">${phone}</span></span><br>`;
+            if (formattedPhone && formattedPhone.trim()) {
+                phoneRow = `<span><span style="color:#141f3e;"><strong>t: </strong></span><span style="color:#141f3e;">${formattedPhone}</span></span><br>`;
             }
 
             // Feedback section
@@ -511,7 +547,7 @@
             html = html.replace(/{{Name}}/g, name);
             html = html.replace(/{{Title}}/g, title);
             html = html.replace(/{{Email}}/g, email);
-            html = html.replace(/{{Mobile}}/g, mobile);
+            html = html.replace(/{{Mobile}}/g, formattedMobile);
             html = html.replace(/{{PhoneRow}}/g, phoneRow);
             html = html.replace(/{{FeedbackSection}}/g, feedbackSection);
 
