@@ -130,12 +130,14 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            color: #bbb;
+            color: #666;
             font-size: 14px;
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
             pointer-events: none;
             z-index: 3;
+            opacity: 0;
+            transition: opacity 0.15s ease;
         }
 
         .email-input-wrapper .email-background {
@@ -469,7 +471,7 @@
                         <div class="form-group">
                             <label for="email">Email Address *</label>
                             <div class="email-input-wrapper">
-                                <input type="text" id="email" placeholder="e.g., john" required oninput="updateEmailSuffix()">
+                                <input type="text" id="email" placeholder="type your email name" required oninput="updateEmailSuffix()">
                                 <span class="email-measure" id="email-measure"></span>
                                 <span class="email-domain-suffix" id="email-suffix">@tauruscapital.co.za</span>
                                 <div class="email-background"></div>
@@ -549,6 +551,11 @@
 
             if (!emailInput || !emailMeasure || !emailSuffix) return;
 
+            // Prevent @ symbol from being entered
+            if (emailInput.value.includes('@')) {
+                emailInput.value = emailInput.value.replace(/@/g, '');
+            }
+
             // Update measure element with current input value
             emailMeasure.textContent = emailInput.value;
 
@@ -563,11 +570,11 @@
             const newLeft = paddingLeft + textWidth;
             emailSuffix.style.left = newLeft + 'px';
 
-            // Update opacity based on whether there's text
+            // Show suffix only when there's text
             if (emailInput.value.length === 0) {
-                emailSuffix.style.opacity = '0.4';
+                emailSuffix.style.opacity = '0';
             } else {
-                emailSuffix.style.opacity = '0.8';
+                emailSuffix.style.opacity = '1';
             }
         }
 
