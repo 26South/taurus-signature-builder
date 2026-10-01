@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taurus Capital Signature Builder - Admin Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141f3e 0%, #1a2850 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #141f3e;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fc6b36 0%, #f55a1f 100%);
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            opacity: 0.95;
+            font-size: 13px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #141f3e;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #fc6b36;
+            box-shadow: 0 0 0 3px rgba(252, 107, 54, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #fc6b36;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #f55a1f;
+        }
+
+        .btn-secondary {
+            background: #141f3e;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0d1520;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #1565c0;
+        }
+
+        .success-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section h2 {
+            font-size: 16px;
+            color: #fc6b36;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #fc6b36;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙️ Admin Settings</h1>
+            <p>Taurus Capital Email Signature Builder Configuration</p>
+        </header>
+
+        <div class="content">
+            <a href="index.html" class="back-link">← Back to Signature Builder</a>
+
+            <div id="success-msg" class="success-msg">✅ Settings saved successfully!</div>
+
+            <div class="info-box">
+                💾 All changes are saved to your browser's local storage. Settings persist across sessions.
+            </div>
+
+            <!-- ZOHO Settings -->
+            <div class="section">
+                <h2>ZOHO Feedback Form</h2>
+                <div class="form-group">
+                    <label for="zoho-url">ZOHO Form URL</label>
+                    <input type="url" id="zoho-url" placeholder="https://forms.zohopublic.com/...">
+                    <div class="info-box" style="margin-top: 8px;">
+                        Used for feedback section in signatures. Should include the full form permalink with parameters.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Details -->
+            <div class="section">
+                <h2>Company Details</h2>
+                <div class="form-group">
+                    <label for="company-name">Company Name</label>
+                    <input type="text" id="company-name" placeholder="Taurus Capital">
+                </div>
+                <div class="form-group">
+                    <label for="address">Physical Address</label>
+                    <textarea id="address" placeholder="Capricorn House, 32 Impala Rd,&#10;Chislehurston, Sandton, 2196"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="company-phone">Company Phone (optional)</label>
+                    <input type="text" id="company-phone" placeholder="+27 11 123 4500">
+                </div>
+                <div class="form-group">
+                    <label for="website">Website URL</label>
+                    <input type="url" id="website" placeholder="https://tauruscapital.co.za">
+                </div>
+            </div>
+
+            <!-- Branding -->
+            <div class="section">
+                <h2>Branding & Images</h2>
+                <div class="form-group">
+                    <label for="logo-url">Logo URL</label>
+                    <input type="url" id="logo-url" placeholder="https://www.tauruscapital.co.za/wp-content/uploads/2025/08/Animated-Taurus-T.gif">
+                </div>
+                <div class="form-group">
+                    <label for="happy-icon">Happy Icon URL</label>
+                    <input type="url" id="happy-icon" placeholder="https://www.tauruscapital.co.za/wp-content/uploads/2025/11/Happy.png">
+                </div>
+                <div class="form-group">
+                    <label for="neutral-icon">Neutral Icon URL</label>
+                    <input type="url" id="neutral-icon" placeholder="https://www.tauruscapital.co.za/wp-content/uploads/2025/11/NeutralT.png">
+                </div>
+                <div class="form-group">
+                    <label for="sad-icon">Sad Icon URL</label>
+                    <input type="url" id="sad-icon" placeholder="https://www.tauruscapital.co.za/wp-content/uploads/2025/11/SadG.png">
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="section">
+                <h2>Social Media Links</h2>
+                <div class="form-group">
+                    <label for="facebook">Facebook URL</label>
+                    <input type="url" id="facebook" placeholder="https://www.facebook.com/TaurusCapitalSA/">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn URL</label>
+                    <input type="url" id="linkedin" placeholder="https://www.linkedin.com/company/taurus-capital-holdings/">
+                </div>
+                <div class="form-group">
+                    <label for="instagram">Instagram URL</label>
+                    <input type="url" id="instagram" placeholder="https://www.instagram.com/taurus_capital_sa/">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+                <button class="btn-secondary" onclick="loadDefaults()">↻ Load Defaults</button>
+                <button class="btn-danger" onclick="clearSettings()">🗑️ Clear All</button>
+            </div>
+
+            <div class="footer-note">
+                <strong>Note:</strong> Settings are stored in your browser's localStorage. They will be used by the signature builder automatically. To transfer settings to another computer, you can export them or manually re-enter them here.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default settings
+        const DEFAULT_SETTINGS = {
+            'zoho-url': 'https://forms.zohopublic.com/tauruscapitalfinancegroup/form/TaurusRateMyService/formperma/xwhXYNc5D7GeX2iqYn9Yo-TrFAMm57RJjQCU5BnjQ6Q',
+            'company-name': 'Taurus Capital',
+            'address': 'Capricorn House, 32 Impala Rd,\nChislehurston, Sandton, 2196',
+            'company-phone': '',
+            'website': 'https://tauruscapital.co.za',
+            'logo-url': 'https://www.tauruscapital.co.za/wp-content/uploads/2025/08/Animated-Taurus-T.gif',
+            'happy-icon': 'https://www.tauruscapital.co.za/wp-content/uploads/2025/11/Happy.png',
+            'neutral-icon': 'https://www.tauruscapital.co.za/wp-content/uploads/2025/11/NeutralT.png',
+            'sad-icon': 'https://www.tauruscapital.co.za/wp-content/uploads/2025/11/SadG.png',
+            'facebook': 'https://www.facebook.com/TaurusCapitalSA/',
+            'linkedin': 'https://www.linkedin.com/company/taurus-capital-holdings/',
+            'instagram': 'https://www.instagram.com/taurus_capital_sa/'
+        };
+
+        // Load settings on page load
+        window.addEventListener('load', function() {
+            loadSettings();
+        });
+
+        function loadSettings() {
+            Object.keys(DEFAULT_SETTINGS).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    const stored = localStorage.getItem('taurus_setting_' + key);
+                    element.value = stored || DEFAULT_SETTINGS[key];
+                }
+            });
+        }
+
+        function saveSettings() {
+            Object.keys(DEFAULT_SETTINGS).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    localStorage.setItem('taurus_setting_' + key, element.value);
+                }
+            });
+
+            // Show success message
+            const msg = document.getElementById('success-msg');
+            msg.classList.add('show');
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 3000);
+        }
+
+        function loadDefaults() {
+            if (confirm('Load default settings? This will overwrite current values.')) {
+                Object.keys(DEFAULT_SETTINGS).forEach(key => {
+                    localStorage.removeItem('taurus_setting_' + key);
+                });
+                loadSettings();
+                alert('Defaults loaded!');
+            }
+        }
+
+        function clearSettings() {
+            if (confirm('Clear all settings? This cannot be undone.')) {
+                Object.keys(DEFAULT_SETTINGS).forEach(key => {
+                    localStorage.removeItem('taurus_setting_' + key);
+                });
+                loadSettings();
+                alert('All settings cleared!');
+            }
+        }
+    </script>
+</body>
+</html>
