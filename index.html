@@ -86,59 +86,64 @@
 
         .email-input-wrapper {
             position: relative;
-            display: flex;
-            align-items: center;
+            display: block;
+            width: 100%;
         }
 
         .email-input-wrapper input {
-            flex: 1;
-            background: transparent;
+            width: 100%;
+            padding: 14px 18px !important;
+            border: none;
+            border-radius: 16px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f6f8;
+            color: #141f3e;
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #e0e4ed;
             position: relative;
             z-index: 2;
         }
 
+        .email-input-wrapper input:focus {
+            outline: none;
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #d9dfe8, 0 0 0 3px rgba(252, 107, 54, 0.15);
+        }
+
         .email-measure {
             position: absolute;
-            left: 18px;
             top: 50%;
+            left: -9999px;
             transform: translateY(-50%);
+            white-space: nowrap;
             font-size: 14px;
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
-            color: #141f3e;
-            white-space: pre;
-            visibility: hidden;
+            padding: 0;
+            margin: 0;
+            opacity: 0;
             pointer-events: none;
-            z-index: 1;
+            height: auto;
+            display: inline-block;
         }
 
         .email-domain-suffix {
             position: absolute;
-            left: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: #bbb;
             font-size: 14px;
             font-family: 'Poppins', sans-serif;
-            pointer-events: none;
             font-weight: 400;
-            z-index: 1;
+            pointer-events: none;
+            z-index: 3;
         }
 
         .email-input-wrapper .email-background {
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 16px;
-            background: #f5f6f8;
-            z-index: 0;
-            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #e0e4ed;
+            display: none;
         }
 
         .email-input-wrapper input:focus ~ .email-background {
-            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #d9dfe8, 0 0 0 3px rgba(252, 107, 54, 0.15);
+            display: none;
         }
 
         .content {
@@ -542,24 +547,37 @@
             const emailMeasure = document.getElementById('email-measure');
             const emailSuffix = document.getElementById('email-suffix');
 
+            if (!emailInput || !emailMeasure || !emailSuffix) return;
+
             // Update measure element with current input value
             emailMeasure.textContent = emailInput.value;
 
-            // Position suffix right after the measured text
-            const measureWidth = emailMeasure.offsetWidth;
-            emailSuffix.style.left = (18 + measureWidth) + 'px';
+            // Force reflow/recompute
+            emailMeasure.offsetHeight;
 
-            // Hide suffix if field is empty and show placeholder guidance
-            if (emailInput.value === '') {
-                emailSuffix.style.opacity = '0.5';
+            // Get text width from measure element
+            const textWidth = emailMeasure.offsetWidth;
+            const paddingLeft = 18; // CSS padding-left from input
+
+            // Calculate and apply the left position
+            const newLeft = paddingLeft + textWidth;
+            emailSuffix.style.left = newLeft + 'px';
+
+            // Update opacity based on whether there's text
+            if (emailInput.value.length === 0) {
+                emailSuffix.style.opacity = '0.4';
             } else {
-                emailSuffix.style.opacity = '1';
+                emailSuffix.style.opacity = '0.8';
             }
         }
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
-            updateEmailSuffix();
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                updateEmailSuffix();
+                emailInput.addEventListener('input', updateEmailSuffix);
+            }
         });
 
         // Base Template
