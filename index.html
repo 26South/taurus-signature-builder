@@ -92,17 +92,53 @@
 
         .email-input-wrapper input {
             flex: 1;
-            padding-right: 180px;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .email-measure {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            color: #141f3e;
+            white-space: pre;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .email-domain-suffix {
             position: absolute;
-            right: 18px;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #bbb;
             font-size: 14px;
             font-family: 'Poppins', sans-serif;
             pointer-events: none;
             font-weight: 400;
+            z-index: 1;
+        }
+
+        .email-input-wrapper .email-background {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            background: #f5f6f8;
+            z-index: 0;
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #e0e4ed;
+        }
+
+        .email-input-wrapper input:focus ~ .email-background {
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #d9dfe8, 0 0 0 3px rgba(252, 107, 54, 0.15);
         }
 
         .content {
@@ -428,8 +464,10 @@
                         <div class="form-group">
                             <label for="email">Email Address *</label>
                             <div class="email-input-wrapper">
-                                <input type="text" id="email" placeholder="e.g., john" required>
-                                <span class="email-domain-suffix">@tauruscapital.co.za</span>
+                                <input type="text" id="email" placeholder="e.g., john" required oninput="updateEmailSuffix()">
+                                <span class="email-measure" id="email-measure"></span>
+                                <span class="email-domain-suffix" id="email-suffix">@tauruscapital.co.za</span>
+                                <div class="email-background"></div>
                             </div>
                         </div>
                     </div>
@@ -498,6 +536,32 @@
     </div>
 
     <script>
+        // Email suffix positioning function
+        function updateEmailSuffix() {
+            const emailInput = document.getElementById('email');
+            const emailMeasure = document.getElementById('email-measure');
+            const emailSuffix = document.getElementById('email-suffix');
+
+            // Update measure element with current input value
+            emailMeasure.textContent = emailInput.value;
+
+            // Position suffix right after the measured text
+            const measureWidth = emailMeasure.offsetWidth;
+            emailSuffix.style.left = (18 + measureWidth) + 'px';
+
+            // Hide suffix if field is empty and show placeholder guidance
+            if (emailInput.value === '') {
+                emailSuffix.style.opacity = '0.5';
+            } else {
+                emailSuffix.style.opacity = '1';
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            updateEmailSuffix();
+        });
+
         // Base Template
         const BASE_TEMPLATE = `<BODY style="font-size: 10pt; font-family: Arial, sans-serif;">
 
