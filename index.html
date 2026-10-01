@@ -371,8 +371,12 @@
                 <div id="individual-preview" class="preview-section" style="display: none;">
                     <div class="preview-label">Preview:</div>
                     <div class="preview-box" id="preview-html"></div>
-                    <button class="copy-btn" onclick="copyPreview()">📋 Copy to Clipboard</button>
-                    <button class="btn-primary" style="margin-top: 10px;" onclick="downloadIndividual()">⬇️ Download HTML</button>
+                    <div class="button-group" style="margin-top: 15px;">
+                        <button class="copy-btn" onclick="copyHTMLSource()" style="flex: 1;">📄 Copy HTML</button>
+                        <button class="copy-btn" onclick="copyForAppleMail()" style="flex: 1;">🍎 Copy for Apple Mail</button>
+                        <button class="copy-btn" onclick="previewForCopy()" style="flex: 1;">👁️ Preview for Copy</button>
+                        <button class="btn-primary" onclick="downloadIndividual()" style="flex: 1;">⬇️ Download HTML</button>
+                    </div>
                 </div>
             </div>
 
@@ -602,11 +606,86 @@
             document.body.removeChild(element);
         }
 
-        function copyPreview() {
+        function copyHTMLSource() {
             const html = document.getElementById('preview-html').innerHTML;
             navigator.clipboard.writeText(html).then(() => {
-                showSuccess('Signature copied to clipboard!');
+                showSuccess('HTML source code copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy to clipboard');
             });
+        }
+
+        function copyForAppleMail() {
+            const html = document.getElementById('preview-html').innerHTML;
+
+            // Copy as rendered HTML (better for Apple Mail)
+            const blob = new Blob([html], { type: 'text/html' });
+            const data = [new ClipboardItem({ 'text/html': blob })];
+
+            navigator.clipboard.write(data).then(() => {
+                showSuccess('Signature copied for Apple Mail!');
+            }).catch(() => {
+                // Fallback: copy as plain text if HTML clipboard not supported
+                navigator.clipboard.writeText(html).then(() => {
+                    showSuccess('Signature copied to clipboard (as text)!');
+                });
+            });
+        }
+
+        function previewForCopy() {
+            const html = document.getElementById('preview-html').innerHTML;
+            const newWindow = window.open('', 'SignaturePreview', 'width=800,height=600');
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Signature Preview</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background: #f5f5f5;
+                            padding: 20px;
+                            margin: 0;
+                        }
+                        .container {
+                            background: white;
+                            padding: 30px;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                            max-width: 600px;
+                            margin: 0 auto;
+                        }
+                        .instructions {
+                            background: #e3f2fd;
+                            padding: 15px;
+                            border-radius: 6px;
+                            margin-bottom: 20px;
+                            font-size: 14px;
+                            color: #1565c0;
+                        }
+                        .signature {
+                            border: 1px solid #ddd;
+                            padding: 20px;
+                            border-radius: 6px;
+                            background: #fafafa;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="instructions">
+                            ✨ <strong>To copy this signature:</strong> Select all (Cmd+A), copy (Cmd+C), then paste into your email client.
+                        </div>
+                        <div class="signature">
+                            ${html}
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
         }
 
         function clearIndividual() {
