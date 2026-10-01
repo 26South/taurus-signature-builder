@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taurus Capital Signature Builder - Admin Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,19 +14,19 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #141f3e 0%, #1a2850 100%);
+            font-family: 'Poppins', sans-serif;
+            background: #f5f6f8;
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
             color: #141f3e;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            background: #f5f6f8;
+            border-radius: 24px;
+            box-shadow: -8px -8px 16px #ffffff, 8px 8px 16px #e0e4ed;
             overflow: hidden;
         }
 
@@ -33,6 +35,31 @@
             padding: 30px;
             color: white;
             text-align: center;
+            position: relative;
+        }
+
+        .back-link-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-link-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         header h1 {
@@ -65,19 +92,28 @@
         input[type="url"],
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 16px;
             font-size: 14px;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f6f8;
+            color: #141f3e;
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #e0e4ed;
+            transition: all 0.3s ease;
         }
 
         input[type="text"]:focus,
         input[type="url"]:focus,
         textarea:focus {
             outline: none;
-            border-color: #fc6b36;
-            box-shadow: 0 0 0 3px rgba(252, 107, 54, 0.1);
+            box-shadow: inset -4px -4px 8px #ffffff, inset 4px 4px 8px #d9dfe8, 0 0 0 3px rgba(252, 107, 54, 0.15);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="url"]::placeholder,
+        textarea::placeholder {
+            color: #999;
         }
 
         textarea {
@@ -93,50 +129,62 @@
 
         button {
             flex: 1;
-            padding: 12px 20px;
+            padding: 14px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 16px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-primary {
-            background: #fc6b36;
+            background: linear-gradient(135deg, #fc6b36 0%, #f55a1f 100%);
             color: white;
+            box-shadow: -2px -2px 8px rgba(252, 107, 54, 0.2), 4px 4px 12px rgba(252, 107, 54, 0.2);
         }
 
         .btn-primary:hover {
-            background: #f55a1f;
+            transform: translateY(-2px);
+            box-shadow: -2px -2px 12px rgba(252, 107, 54, 0.3), 6px 6px 16px rgba(252, 107, 54, 0.25);
         }
 
         .btn-secondary {
-            background: #141f3e;
-            color: white;
+            background: #f5f6f8;
+            color: #141f3e;
+            box-shadow: -4px -4px 8px #ffffff, 4px 4px 8px #e0e4ed;
         }
 
         .btn-secondary:hover {
-            background: #0d1520;
+            transform: translateY(-2px);
+            box-shadow: -4px -4px 12px #ffffff, 6px 6px 12px #d9dfe8;
         }
 
         .btn-danger {
-            background: #dc3545;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
+            box-shadow: -2px -2px 8px rgba(220, 53, 69, 0.2), 4px 4px 12px rgba(220, 53, 69, 0.2);
         }
 
         .btn-danger:hover {
-            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: -2px -2px 12px rgba(220, 53, 69, 0.3), 6px 6px 16px rgba(220, 53, 69, 0.25);
         }
 
         .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 12px;
-            border-radius: 4px;
+            background: rgba(0, 121, 172, 0.05);
+            border-left: 3px solid #0079ac;
+            padding: 14px 16px;
+            border-radius: 12px;
             font-size: 13px;
             margin-bottom: 20px;
-            color: #1565c0;
+            color: #0079ac;
+            line-height: 1.5;
         }
 
         .success-msg {
@@ -155,7 +203,7 @@
         .section {
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #e0e4ed;
         }
 
         .section:last-child {
@@ -171,15 +219,19 @@
         }
 
         .back-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             margin-bottom: 20px;
             color: #fc6b36;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            transform: translateX(-2px);
         }
 
         .footer-note {
@@ -195,17 +247,19 @@
 <body>
     <div class="container">
         <header>
-            <h1>⚙️ Admin Settings</h1>
+            <a href="index.html" class="back-link-btn" title="Back to Signature Builder">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1><i class="fas fa-cog"></i> Admin Settings</h1>
             <p>Taurus Capital Email Signature Builder Configuration</p>
         </header>
 
         <div class="content">
-            <a href="index.html" class="back-link">← Back to Signature Builder</a>
 
             <div id="success-msg" class="success-msg">✅ Settings saved successfully!</div>
 
             <div class="info-box">
-                💾 All changes are saved to your browser's local storage. Settings persist across sessions.
+                <i class="fas fa-floppy-disk"></i> All changes are saved to your browser's local storage. Settings persist across sessions.
             </div>
 
             <!-- ZOHO Settings -->
@@ -281,9 +335,9 @@
 
             <!-- Action Buttons -->
             <div class="button-group">
-                <button class="btn-primary" onclick="saveSettings()">💾 Save Settings</button>
-                <button class="btn-secondary" onclick="loadDefaults()">↻ Load Defaults</button>
-                <button class="btn-danger" onclick="clearSettings()">🗑️ Clear All</button>
+                <button class="btn-primary" onclick="saveSettings()"><i class="fas fa-floppy-disk"></i> Save Settings</button>
+                <button class="btn-secondary" onclick="loadDefaults()"><i class="fas fa-rotate-left"></i> Load Defaults</button>
+                <button class="btn-danger" onclick="clearSettings()"><i class="fas fa-trash"></i> Clear All</button>
             </div>
 
             <div class="footer-note">
