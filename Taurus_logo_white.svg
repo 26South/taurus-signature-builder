@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW 2026 -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="210mm" height="297mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 21000 29700"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="112.555mm" height="34.6211mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 10977.77 3376.68"
  xmlns:xlink="http://www.w3.org/1999/xlink"
  xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
  <defs>
@@ -41,17 +41,17 @@ viewBox="0 0 21000 29700"
     @font-face { font-family:"Poppins";font-variant:normal;font-weight:bold;src:url("#FontID0") format(svg)}
     .fil0 {fill:white}
     .fil1 {fill:white;fill-rule:nonzero}
-    .fnt1 {font-weight:normal;font-size:1618.78px;font-family:'Poppins'}
-    .fnt0 {font-weight:bold;font-size:2073.52px;font-family:'Poppins'}
+    .fnt1 {font-weight:normal;font-size:1578.84px;font-family:'Poppins'}
+    .fnt0 {font-weight:bold;font-size:2022.36px;font-family:'Poppins'}
    ]]>
   </style>
  </defs>
  <g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
   <g>
-   <text x="8601.57" y="10113.58"  class="fil0 fnt0">Taurus</text>
-   <path class="fil1" d="M6759.12 9480.81l0 2383.87 -839.35 0 0 -2379.07 -1189.9 0 0 -836.83 1194.72 0c461.48,0 834.53,373.52 834.53,832.03zm1186.7 1547.03l-976.04 0 0 836.82 976.04 0 0 -836.82zm-0.03 -2379.07l0 836.84 -976.03 0 0 -4.81c0,-278.93 -109.34,-540.25 -305.51,-735.84 -35.38,-35.27 -72.37,-67.32 -110.94,-96.19l1392.48 0z"/>
-   <text x="10193.34" y="11690"  class="fil0 fnt1">Capital</text>
+   <text x="3776.16" y="1428.67"  class="fil0 fnt0">Taurus</text>
+   <path class="fil1" d="M1979.18 811.51l0 2325.05 -818.64 0 0 -2320.37 -1160.54 0 0 -816.18 1165.24 0c450.09,0 813.94,364.3 813.94,811.5zm1157.42 1508.86l-951.96 0 0 816.17 951.96 0 0 -816.17zm-0.03 -2320.37l0 816.19 -951.95 0 0 -4.69c0,-272.05 -106.64,-526.92 -297.97,-717.68 -34.51,-34.4 -70.58,-65.66 -108.2,-93.82l1358.12 0z"/>
+   <text x="5328.66" y="2966.19"  class="fil0 fnt1">Capital</text>
   </g>
  </g>
 </svg>
